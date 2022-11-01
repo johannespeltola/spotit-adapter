@@ -1,0 +1,18 @@
+{
+    "version": "1.0",
+    "title": "Entso-e day ahead connector",
+    "loggerConf": {
+        "logBasePath": "./logs",
+        "fileNameSuffix": "entso-e.log",
+        "saveToFile": true,
+        "verbose": true,
+        "systemLog": false,
+        "stdOutLogOnly": true
+    },
+    "entsoeURL": "https://transparency.entsoe.eu/api",
+    "securityToken": "",
+    "documentType": "A44",
+    "domain": "10YFI-1--------U",
+    "vatAmount": 1.24,
+    "dataEndpoint": "http://127.0.0.1:8080/price"
+}
