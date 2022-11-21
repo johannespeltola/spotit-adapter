@@ -55,7 +55,9 @@ func Routine(interval time.Duration, env *global.Env) {
 		}
 		priceData := parseXML(xmlBytes, env)
 		currentPrice := (*priceData)[utils.GetHour()]
-		var jsonStr = []byte(fmt.Sprintf(`{"price":%v, "timeStamp":"%v"}`, currentPrice, time.Now().Unix()))
+		currentTime := time.Now()
+		timeStamp := fmt.Sprintf("%v%v%v%v", currentTime.Year(), int(currentTime.Month()), currentTime.Day(), currentTime.Hour())
+		var jsonStr = []byte(fmt.Sprintf(`{"price":%v, "timeStamp":"%v"}`, currentPrice, timeStamp))
 		req, err := http.NewRequest("POST", config.GetDataEndpoint(), bytes.NewBuffer(jsonStr))
 		req.Header.Add("Authorization", config.GetAccessToken())
 		if err != nil {
