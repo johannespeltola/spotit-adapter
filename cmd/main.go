@@ -12,6 +12,6 @@ func init() {
 
 func main() {
 	env := global.Init()
-	go routine.Routine(5, env)
+	go routine.Routine(30, env)
 	select {} // this will cause the program to run forever
 }
