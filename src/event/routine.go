@@ -50,7 +50,7 @@ func Routine(interval time.Duration, env *global.Env) {
 	for range time.Tick(interval * time.Second) {
 		xmlBytes, err := getXML(utils.GetEntsoeURL())
 		if err != nil {
-			env.Logger.Fatal(err.Error())
+			env.Logger.Error(err.Error())
 			return
 		}
 		priceData := parseXML(xmlBytes, env)
@@ -61,20 +61,20 @@ func Routine(interval time.Duration, env *global.Env) {
 		req, err := http.NewRequest("POST", config.GetDataEndpoint(), bytes.NewBuffer(jsonStr))
 		req.Header.Add("Authorization", config.GetAccessToken())
 		if err != nil {
-			env.Logger.Fatalf("Failed to create backend request %v", err.Error())
+			env.Logger.Errorf("Failed to create backend request %v", err.Error())
 			return
 		}
 		req.Header.Set("Content-Type", "application/json")
 		client := &http.Client{}
 		resp, err := client.Do(req)
 		if err != nil {
-			env.Logger.Fatal(err)
+			env.Logger.Error(err)
 			return
 		}
 		defer resp.Body.Close()
 		if resp.StatusCode != 201 {
 			body, _ := ioutil.ReadAll(resp.Body)
-			env.Logger.Fatalf("Request failed with status code %v and body: %v", resp.StatusCode, string(body))
+			env.Logger.Errorf("Request failed with status code %v and body: %v", resp.StatusCode, string(body))
 			return
 		}
 	}
