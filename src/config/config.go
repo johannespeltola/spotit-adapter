@@ -22,6 +22,7 @@ type Config struct {
 	Domain        null.String         `json:"domain"`
 	VATAmount     null.Float          `json:"vatAmount"`
 	DataEndpoint  null.String         `json:"dataEndpoint"`
+	Token         null.String         `json:"token"`
 }
 
 // ReadConfigJSON was created with the to make the configuration process
@@ -66,4 +67,8 @@ func GetVat() float32 {
 
 func GetDataEndpoint() string {
 	return cfg.DataEndpoint.String
+}
+
+func GetAccessToken() string {
+	return cfg.Token.String
 }

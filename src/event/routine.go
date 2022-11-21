@@ -57,6 +57,7 @@ func Routine(interval time.Duration, env *global.Env) {
 		currentPrice := (*priceData)[utils.GetHour()]
 		var jsonStr = []byte(fmt.Sprintf(`{"price":%v, "timeStamp":"%v"}`, currentPrice, time.Now().Unix()))
 		req, err := http.NewRequest("POST", config.GetDataEndpoint(), bytes.NewBuffer(jsonStr))
+		req.Header.Add("Authorization", config.GetAccessToken())
 		if err != nil {
 			env.Logger.Fatalf("Failed to create backend request %v", err.Error())
 			return
